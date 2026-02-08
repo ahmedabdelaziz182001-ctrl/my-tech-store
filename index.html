@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechStore 2026 - المتجر الكامل</title>
     <style>
-        :root { --main-blue: #0066cc; --dark-bg: #1a1a1a; --success-green: #1b5e20; --star-color: #f1c40f; }
+        :root { --main-blue: #0066cc; --dark-bg: #1a1a1a; --success-green: #1b5e20; }
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f4f7f6; padding-bottom: 120px; }
         header { background: var(--dark-bg); color: white; padding: 15px; position: sticky; top: 0; z-index: 1000; text-align: center; }
         .logo-img { height: 60px; margin-bottom: 5px; object-fit: contain; }
@@ -34,6 +34,97 @@
 <header>
     <img src="https://i.ibb.co/Mk4NnM6x/Logo-20260208-171512.png" alt="TechStore Logo" class="logo-img">
     <br>
+    <input type="text" class="search-input" placeholder="ابحث عن هاتف..." id="searchInput" onkeyup="filterProducts()">
+</header>
+
+<div class="products-grid" id="grid">
+    <div class="product-card" onclick="openProduct('Honor X9d', 16500, 'https://i.ibb.co/DH0fv9Dv/IMG-20260207-WA0003.jpg', 'مقاوم للكسر ، بطارية 8300 مللي أمبير ، شاشة AMOLED')">
+        <div style="position: absolute; top: 5px; left: 5px; background: #e74c3c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px;">الأكثر مبيعاً</div>
+        <img src="https://i.ibb.co/DH0fv9Dv/IMG-20260207-WA0003.jpg">
+        <h3>Honor X9d</h3>
+        <p class="price">16,500 ج.م</p>
+    </div>
+
+    <div class="product-card" onclick="openProduct('iPhone 16 Pro Max', 75000, 'https://i.ibb.co/7xJjBVSS/Apple-i-Phone-16-Pro-Max.jpg', 'معالج A18 Pro ، تيتانيوم ، شاشة 6.9 بوصة')">
+        <img src="https://i.ibb.co/7xJjBVSS/Apple-i-Phone-16-Pro-Max.jpg">
+        <h3>iPhone 16 Pro Max</h3>
+        <p class="price">75,000 ج.م</p>
+    </div>
+
+    <div class="product-card" onclick="openProduct('iPhone 16 Pro', 65000, 'https://m.media-amazon.com/images/I/81L6p-S65eL._AC_SL1500_.jpg', 'معالج A18 Pro ، شاشة 6.3 بوصة')">
+        <img src="https://m.media-amazon.com/images/I/81L6p-S65eL._AC_SL1500_.jpg">
+        <h3>iPhone 16 Pro</h3>
+        <p class="price">65,000 ج.م</p>
+    </div>
+
+    <div class="product-card" onclick="openProduct('Samsung S25 Ultra', 65000, 'https://i.ibb.co/sdgScNHh/IMG-20260207-WA0004.jpg', 'معالج AI المتطور ، قلم S-Pen ، تيتانيوم')">
+        <img src="https://i.ibb.co/sdgScNHh/IMG-20260207-WA0004.jpg">
+        <h3>Samsung S25 Ultra</h3>
+        <p class="price">65,000 ج.م</p>
+    </div>
+</div>
+
+<section class="contact-section">
+    <h3>تواصل معنا</h3>
+    <div class="contact-buttons">
+        <a href="tel:01274680468" class="contact-btn btn-call">📞 اتصل بنا</a>
+        <a href="https://goo.gl/maps/XXXX" target="_blank" class="contact-btn btn-map">📍 موقعنا</a>
+    </div>
+</section>
+
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="m-img" class="modal-img">
+        <h2 id="m-title"></h2>
+        <p class="price" id="m-price" style="font-size: 24px;"></p>
+        <hr>
+        <ul id="m-specs" class="specs-list"></ul>
+        <button style="background:var(--success-green); color:white; border:none; width:100%; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer;" id="addBtn">إضافة للسلة والطلب 🛒</button>
+    </div>
+</div>
+
+<div class="cart-bar">
+    <div>الأصناف: <span id="count" style="font-weight:bold; color:var(--main-blue);">0</span></div>
+    <div>الإجمالي: <span id="total" style="font-weight:bold; color:var(--main-blue);">0</span> ج.م</div>
+    <button style="background:#25d366; color:white; border:none; padding:12px 20px; border-radius:10px; font-weight:bold; cursor:pointer;" onclick="checkout()">تأكيد عبر واتساب</button>
+</div>
+
+<script>
+    let cart = []; let total = 0;
+    function filterProducts() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('product-card');
+        for (let card of cards) {
+            let title = card.getElementsByTagName('h3')[0].innerText.toLowerCase();
+            card.style.display = title.includes(input) ? "" : "none";
+        }
+    }
+    function openProduct(name, price, img, specs) {
+        document.getElementById('m-title').innerText = name;
+        document.getElementById('m-price').innerText = price.toLocaleString() + " ج.م";
+        document.getElementById('m-img').src = img;
+        let specsArr = specs.split('،');
+        document.getElementById('m-specs').innerHTML = specsArr.map(s => `<li><b>•</b> ${s.trim()}</li>`).join('');
+        document.getElementById('addBtn').onclick = function() { addToCart(name, price); closeModal(); };
+        document.getElementById('productModal').style.display = "block";
+    }
+    function closeModal() { document.getElementById('productModal').style.display = "none"; }
+    function addToCart(name, price) {
+        cart.push({name, price}); total += price;
+        document.getElementById('count').innerText = cart.length;
+        document.getElementById('total').innerText = total.toLocaleString();
+    }
+    function checkout() {
+        if (cart.length === 0) return alert("السلة فارغة!");
+        let msg = "طلب جديد من المتجر:\n" + cart.map((item,i)=>`${i+1}- ${item.name}`).join('\n') + `\n\nالإجمالي: ${total.toLocaleString()} ج.م`;
+        window.open(`https://wa.me/201274680468?text=${encodeURIComponent(msg)}`);
+    }
+    window.onclick = function(event) { if (event.target == document.getElementById('productModal')) closeModal(); }
+</script>
+
+</body>
+</html>
     <input type="text" class="search-input" placeholder="ابحث عن هاتف..." id="searchInput" onkeyup="filterProducts()">
 </header>
 
