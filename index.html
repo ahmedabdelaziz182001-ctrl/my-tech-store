@@ -196,271 +196,3 @@
 
 </body>
 </html>
-    <input type="text" class="search-input" placeholder="ابحث عن هاتف..." id="searchInput" onkeyup="filterProducts()">
-</header>
-
-<div class="products-grid" id="grid">
-    <div class="product-card" onclick="openProduct('Honor X9d', 16500, 'https://i.ibb.co/DH0fv9Dv/IMG-20260207-WA0003.jpg', 'مقاوم للكسر ، بطارية 8300 مللي أمبير ، شاشة AMOLED')">
-        <div style="position: absolute; top: 5px; left: 5px; background: #e74c3c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px;">الأكثر مبيعاً</div>
-        <img src="https://i.ibb.co/DH0fv9Dv/IMG-20260207-WA0003.jpg">
-        <h3>Honor X9d</h3>
-        <p class="price">16,500 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('iPhone 16 Pro Max', 75000, 'https://i.ibb.co/7xJjBVSS/Apple-i-Phone-16-Pro-Max.jpg', 'معالج A18 Pro ، تيتانيوم ، شاشة 6.9 بوصة')">
-        <img src="https://i.ibb.co/7xJjBVSS/Apple-i-Phone-16-Pro-Max.jpg">
-        <h3>iPhone 16 Pro Max</h3>
-        <p class="price">75,000 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('iPhone 16 Pro', 65000, 'https://m.media-amazon.com/images/I/81L6p-S65eL._AC_SL1500_.jpg', 'معالج A18 Pro ، شاشة 6.3 بوصة')">
-        <img src="https://m.media-amazon.com/images/I/81L6p-S65eL._AC_SL1500_.jpg">
-        <h3>iPhone 16 Pro</h3>
-        <p class="price">65,000 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('Samsung S25 Ultra', 65000, 'https://i.ibb.co/sdgScNHh/IMG-20260207-WA0004.jpg', 'معالج AI المتطور ، قلم S-Pen ، تيتانيوم')">
-        <img src="https://i.ibb.co/sdgScNHh/IMG-20260207-WA0004.jpg">
-        <h3>Samsung S25 Ultra</h3>
-        <p class="price">65,000 ج.م</p>
-    </div>
-</div>
-
-<section class="contact-section">
-    <h3>تواصل معنا</h3>
-    <div class="contact-buttons">
-        <a href="tel:01274680468" class="contact-btn btn-call">📞 اتصل بنا</a>
-        <a href="https://goo.gl/maps/XXXX" target="_blank" class="contact-btn btn-map">📍 موقعنا</a>
-    </div>
-</section>
-
-<div id="productModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img id="m-img" class="modal-img">
-        <h2 id="m-title"></h2>
-        <p class="price" id="m-price" style="font-size: 24px;"></p>
-        <hr>
-        <ul id="m-specs" class="specs-list"></ul>
-        <button style="background:var(--success-green); color:white; border:none; width:100%; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer;" id="addBtn">إضافة للسلة والطلب 🛒</button>
-    </div>
-</div>
-
-<div class="cart-bar">
-    <div>الأصناف: <span id="count" style="font-weight:bold; color:var(--main-blue);">0</span></div>
-    <div>الإجمالي: <span id="total" style="font-weight:bold; color:var(--main-blue);">0</span> ج.م</div>
-    <button style="background:#25d366; color:white; border:none; padding:12px 20px; border-radius:10px; font-weight:bold; cursor:pointer;" onclick="checkout()">تأكيد عبر واتساب</button>
-</div>
-
-<script>
-    let cart = []; let total = 0;
-    function filterProducts() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.getElementsByClassName('product-card');
-        for (let card of cards) {
-            let title = card.getElementsByTagName('h3')[0].innerText.toLowerCase();
-            card.style.display = title.includes(input) ? "" : "none";
-        }
-    }
-    function openProduct(name, price, img, specs) {
-        document.getElementById('m-title').innerText = name;
-        document.getElementById('m-price').innerText = price.toLocaleString() + " ج.م";
-        document.getElementById('m-img').src = img;
-        let specsArr = specs.split('،');
-        document.getElementById('m-specs').innerHTML = specsArr.map(s => `<li><b>•</b> ${s.trim()}</li>`).join('');
-        document.getElementById('addBtn').onclick = function() { addToCart(name, price); closeModal(); };
-        document.getElementById('productModal').style.display = "block";
-    }
-    function closeModal() { document.getElementById('productModal').style.display = "none"; }
-    function addToCart(name, price) {
-        cart.push({name, price}); total += price;
-        document.getElementById('count').innerText = cart.length;
-        document.getElementById('total').innerText = total.toLocaleString();
-    }
-    function checkout() {
-        if (cart.length === 0) return alert("السلة فارغة!");
-        let msg = "طلب جديد من المتجر:\n" + cart.map((item,i)=>`${i+1}- ${item.name}`).join('\n') + `\n\nالإجمالي: ${total.toLocaleString()} ج.م`;
-        window.open(`https://wa.me/201274680468?text=${encodeURIComponent(msg)}`);
-    }
-    window.onclick = function(event) { if (event.target == document.getElementById('productModal')) closeModal(); }
-</script>
-
-</body>
-</html>
-    <input type="text" class="search-input" placeholder="ابحث عن هاتف..." id="searchInput" onkeyup="filterProducts()">
-</header>
-
-<div class="products-grid" id="grid">
-    <div class="product-card" onclick="openProduct('Honor X9d', 16500, 'https://i.ibb.co/DH0fv9Dv/IMG-20260207-WA0003.jpg', '★★★★★', 'مقاوم للكسر ، بطارية 8300 مللي أمبير ، شاشة AMOLED ، معالج Snapdragon 6 Gen 4')">
-        <div style="position: absolute; top: 5px; left: 5px; background: #e74c3c; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px;">الأكثر مبيعاً</div>
-        <img src="https://i.ibb.co/DH0fv9Dv/IMG-20260207-WA0003.jpg">
-        <h3>Honor X9d</h3>
-        <p class="price">16,500 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('iPhone 16 Pro Max', 75000, 'https://m.media-amazon.com/images/I/81SigAnN7pL._AC_SL1500_.jpg', '★★★★★', 'معالج A18 Pro ، تيتانيوم ، شاشة 6.9 بوصة')">
-        <img src="https://m.media-amazon.com/images/I/81SigAnN7pL._AC_SL1500_.jpg">
-        <h3>iPhone 16 Pro Max</h3>
-        <p class="price">75,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('iPhone 16 Pro', 65000, 'https://m.media-amazon.com/images/I/81L6p-S65eL._AC_SL1500_.jpg', '★★★★★', 'معالج A18 Pro ، شاشة 6.3 بوصة')">
-        <img src="https://m.media-amazon.com/images/I/81L6p-S65eL._AC_SL1500_.jpg">
-        <h3>iPhone 16 Pro</h3>
-        <p class="price">65,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('iPhone 16 Plus', 52000, 'https://i.ibb.co/7xJjBVSS/Apple-i-Phone-16-Pro-Max.jpg', '★★★★☆', 'بطارية تدوم طويلاً ، ألوان مميزة')">
-        <img src="https://m.media-amazon.com/images/I/61fSPhyM3QL._AC_SL1500_.jpg">
-        <h3>iPhone 16 Plus</h3>
-        <p class="price">52,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('iPhone 15', 38000, 'https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg', '★★★★☆', 'منفذ USB-C ، شاشة Super Retina')">
-        <img src="https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg">
-        <h3>iPhone 15</h3>
-        <p class="price">38,000 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('Samsung S25 Ultra', 65000, 'https://i.ibb.co/sdgScNHh/IMG-20260207-WA0004.jpg', '★★★★★', 'معالج AI المتطور ، قلم S-Pen ، تيتانيوم')">
-        <img src="https://i.ibb.co/sdgScNHh/IMG-20260207-WA0004.jpg">
-        <h3>Samsung S25 Ultra</h3>
-        <p class="price">65,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Galaxy Z Fold 6', 72000, 'https://m.media-amazon.com/images/I/71S8y94SbtL._AC_SL1500_.jpg', '★★★★★', 'شاشة قابلة للطي ، معالج رائد')">
-        <img src="https://m.media-amazon.com/images/I/71S8y94SbtL._AC_SL1500_.jpg">
-        <h3>Galaxy Z Fold 6</h3>
-        <p class="price">72,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Galaxy S24 FE', 32000, 'https://m.media-amazon.com/images/I/61L9mO6W-TL._AC_SL1500_.jpg', '★★★★☆', 'أداء ممتاز بسعر متوسط')">
-        <img src="https://m.media-amazon.com/images/I/61L9mO6W-TL._AC_SL1500_.jpg">
-        <h3>Galaxy S24 FE</h3>
-        <p class="price">32,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Galaxy A55 5G', 19500, 'https://m.media-amazon.com/images/I/71p-GgX-0cL._AC_SL1500_.jpg', '★★★★☆', 'تصميم معدني ، مقاوم للماء')">
-        <img src="https://m.media-amazon.com/images/I/71p-GgX-0cL._AC_SL1500_.jpg">
-        <h3>Galaxy A55 5G</h3>
-        <p class="price">19,500 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Galaxy A35 5G', 14800, 'https://m.media-amazon.com/images/I/71B9-MvHwYL._AC_SL1500_.jpg', '★★★★☆', 'شاشة 120Hz ، كاميرات رائعة')">
-        <img src="https://m.media-amazon.com/images/I/71B9-MvHwYL._AC_SL1500_.jpg">
-        <h3>Galaxy A35 5G</h3>
-        <p class="price">14,800 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Galaxy A15', 7800, 'https://m.media-amazon.com/images/I/51V6z5oG-0L._AC_SL1200_.jpg', '★★★☆☆', 'أفضل موبايل اقتصادي')">
-        <img src="https://m.media-amazon.com/images/I/51V6z5oG-0L._AC_SL1200_.jpg">
-        <h3>Galaxy A15</h3>
-        <p class="price">7,800 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('Oppo Reno 12 Pro', 24000, 'https://m.media-amazon.com/images/I/71F7X5A6KLL._AC_SL1500_.jpg', '★★★★☆', 'كاميرا بورتريه ذكية ، شحن سريع')">
-        <img src="https://m.media-amazon.com/images/I/71F7X5A6KLL._AC_SL1500_.jpg">
-        <h3>Oppo Reno 12 Pro</h3>
-        <p class="price">24,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Oppo Reno 12 F', 13500, 'https://m.media-amazon.com/images/I/61-6H06fC-L._AC_SL1500_.jpg', '★★★★☆', 'تصميم الـ Halo Light المميز')">
-        <img src="https://m.media-amazon.com/images/I/61-6H06fC-L._AC_SL1500_.jpg">
-        <h3>Oppo Reno 12 F</h3>
-        <p class="price">13,500 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Oppo A3 Pro', 11200, 'https://m.media-amazon.com/images/I/61jY-1qY9YL._AC_SL1500_.jpg', '★★★☆☆', 'مقاوم للصدمات والماء')">
-        <img src="https://m.media-amazon.com/images/I/61jY-1qY9YL._AC_SL1500_.jpg">
-        <h3>Oppo A3 Pro</h3>
-        <p class="price">11,200 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Oppo A78', 9600, 'https://m.media-amazon.com/images/I/71m67Y+W7pL._AC_SL1500_.jpg', '★★★★☆', 'شحن 67 واط ، شاشة AMOLED')">
-        <img src="https://m.media-amazon.com/images/I/71m67Y+W7pL._AC_SL1500_.jpg">
-        <h3>Oppo A78</h3>
-        <p class="price">9,600 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Oppo A18', 5400, 'https://m.media-amazon.com/images/I/61fS+K-pGPL._AC_SL1500_.jpg', '★★★☆☆', 'بطارية 5000 ، سعر اقتصادي')">
-        <img src="https://m.media-amazon.com/images/I/61fS+K-pGPL._AC_SL1500_.jpg">
-        <h3>Oppo A18</h3>
-        <p class="price">5,400 ج.م</p>
-    </div>
-
-    <div class="product-card" onclick="openProduct('Pura 70 Ultra', 58000, 'https://m.media-amazon.com/images/I/61zY0K9xG6L._AC_SL1000_.jpg', '★★★★★', 'كاميرا احترافية متحركة')">
-        <img src="https://m.media-amazon.com/images/I/61zY0K9xG6L._AC_SL1000_.jpg">
-        <h3>Pura 70 Ultra</h3>
-        <p class="price">58,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Huawei Nova 12i', 11500, 'https://m.media-amazon.com/images/I/61U0846h-oL._AC_SL1500_.jpg', '★★★★☆', 'كاميرا 108 ميجابكسل')">
-        <img src="https://m.media-amazon.com/images/I/61U0846h-oL._AC_SL1500_.jpg">
-        <h3>Huawei Nova 12i</h3>
-        <p class="price">11,500 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Mate 60 Pro', 45000, 'https://m.media-amazon.com/images/I/61iV8Vv9yAL._AC_SL1000_.jpg', '★★★★★', 'أداء جبار ، شاشة قوية جداً')">
-        <img src="https://m.media-amazon.com/images/I/61iV8Vv9yAL._AC_SL1000_.jpg">
-        <h3>Mate 60 Pro</h3>
-        <p class="price">45,000 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Nova Y72', 8200, 'https://m.media-amazon.com/images/I/51r2n3y9y+L._AC_SL1000_.jpg', '★★★☆☆', 'زر X Key ، بطارية ضخمة')">
-        <img src="https://m.media-amazon.com/images/I/51r2n3y9y+L._AC_SL1000_.jpg">
-        <h3>Nova Y72</h3>
-        <p class="price">8,200 ج.م</p>
-    </div>
-    <div class="product-card" onclick="openProduct('Nova 11', 17000, 'https://m.media-amazon.com/images/I/61zXfK8-VXL._AC_SL1500_.jpg', '★★★★☆', 'تصميم فائق النحافة')">
-        <img src="https://m.media-amazon.com/images/I/61zXfK8-VXL._AC_SL1500_.jpg">
-        <h3>Nova 11</h3>
-        <p class="price">17,000 ج.م</p>
-    </div>
-</div>
-
-<section class="contact-section">
-    <h3>تواصل معنا</h3>
-    <div class="contact-buttons">
-        <a href="tel:010XXXXXXXX" class="contact-btn btn-call">📞 اتصل بنا</a>
-        <a href="https://goo.gl/maps/XXXX" target="_blank" class="contact-btn btn-map">📍 موقعنا</a>
-    </div>
-</section>
-
-<div id="productModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img id="m-img" class="modal-img">
-        <h2 id="m-title"></h2>
-        <p class="price" id="m-price" style="font-size: 24px;"></p>
-        <hr>
-        <ul id="m-specs" class="specs-list"></ul>
-        <button style="background:var(--success-green); color:white; border:none; width:100%; padding:15px; border-radius:8px; font-weight:bold; cursor:pointer;" id="addBtn">إضافة للسلة والطلب 🛒</button>
-    </div>
-</div>
-
-<div class="cart-bar">
-    <div>الأصناف: <span id="count" style="font-weight:bold; color:var(--main-blue);">0</span></div>
-    <div>الإجمالي: <span id="total" style="font-weight:bold; color:var(--main-blue);">0</span> ج.م</div>
-    <button style="background:#25d366; color:white; border:none; padding:12px 20px; border-radius:10px; font-weight:bold; cursor:pointer;" onclick="checkout()">تأكيد عبر واتساب</button>
-</div>
-
-<script>
-    let cart = []; let total = 0;
-    function filterProducts() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let cards = document.getElementsByClassName('product-card');
-        for (let card of cards) {
-            let title = card.getElementsByTagName('h3')[0].innerText.toLowerCase();
-            card.style.display = title.includes(input) ? "" : "none";
-        }
-    }
-    function openProduct(name, price, img, stars, specs) {
-        document.getElementById('m-title').innerText = name;
-        document.getElementById('m-price').innerText = price.toLocaleString() + " ج.م";
-        document.getElementById('m-img').src = img;
-        let specsArr = specs.split('،');
-        document.getElementById('m-specs').innerHTML = specsArr.map(s => `<li><b>•</b> ${s.trim()}</li>`).join('');
-        document.getElementById('addBtn').onclick = function() { addToCart(name, price); closeModal(); };
-        document.getElementById('productModal').style.display = "block";
-    }
-    function closeModal() { document.getElementById('productModal').style.display = "none"; }
-    function addToCart(name, price) {
-        cart.push({name, price}); total += price;
-        document.getElementById('count').innerText = cart.length;
-        document.getElementById('total').innerText = total.toLocaleString();
-    }
-    function checkout() {
-        if (cart.length === 0) return alert("السلة فارغة!");
-        let msg = "طلب جديد:\n" + cart.map((item,i)=>`${i+1}- ${item.name}`).join('\n') + `\n\nالإجمالي: ${total.toLocaleString()} ج.م`;
-        window.open(`https://wa.me/201274680468?text=${encodeURIComponent(msg)}`);
-    }
-    window.onclick = function(event) { if (event.target == document.getElementById('productModal')) closeModal(); }
-</script>
-
-</body>
-</html>
